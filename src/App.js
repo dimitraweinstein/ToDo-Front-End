@@ -24,10 +24,6 @@ export default class App extends Component {
       <div>
         <Router>
           <Header />
-          <Link to='/'>Home</Link>
-          <Link to='/signup'>Sign Up!</Link>
-          <Link to='/signin'>Log In!</Link>
-          <Link to='/todos'>To Do List</Link>
           <Switch>
              <Route exact path='/' render={(routerProps) => <HomePage 
                 {...routerProps} />} 
