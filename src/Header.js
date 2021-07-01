@@ -9,7 +9,8 @@ export default class Header extends Component {
                  <Link to='/'>Home</Link>
                  <Link to='/signup'>Sign Up!</Link>
                  <Link to='/signin'>Log In!</Link>
-                 <Link to='/todos'>To Do List</Link>
+                <Link to='/todos'>To Do List</Link>
+                <button onClick={this.logout}>Log Out!</button>
             </div>
         )
     }
