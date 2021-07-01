@@ -1,19 +1,49 @@
-export function signup() {
+import { id } from 'postcss-selector-parser';
+import request from 'superagent';
 
+const URL = 'https://to-do-list-app-lab12.herokuapp.com/';
+
+
+export async function signup(email, password) {
+    const data = await request
+        .post(`/${URL}/auth/signup`)
+        .send({
+            email: this.state.email,
+            password: this.state.password
+        })
+    return data.body.token
 }
 
-export function login() {
-    
+export async function login() {
+    const data = await request
+        .post(`/${URL}/auth/signin`)
+        .send({
+            email: this.state.email,
+            password: this.state.password
+        })
+    return data.body.token
 }
 
-export function getToDos() {
-    
+export async function getToDos(token) {
+    const data = await request
+        .get(`/${URL}/api/todos`)
+        .set('Authorization', token)
+    return data.body
 }
 
-export function addToDo() {
-    
+export async function addToDo(todo_item, token) {
+    const data = await request
+        .post(`/${URL}/api/todos`)
+        .send({
+            todo_item: todo_item,
+        })
+    .set('Authorization', token)
+    return data.body
 }
 
-export function completeToDo() {
-    
+export async function completeToDo(id, token) {
+    const data = await request
+        .put(`/${URL}/api/todos/${id}`)
+        .set('Authorization', token)
+    return data.body
 }
