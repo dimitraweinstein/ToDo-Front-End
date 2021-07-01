@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {
     BrowserRouter as Router, 
+    Redirect, 
     Route, 
     Switch,
-    Link,
 } from "react-router-dom";
 import ToDoListPage from './ToDoListPage.js';
 import Login from './LoginPage.js';
@@ -11,13 +11,20 @@ import SignUp from './SignupPage.js';
 import HomePage from './HomePage.js';
 import Header from './Header.js';
 
-export default class App extends Component {
-  // state = { token: localStorage.getItem('TOKEN') }
+const TOKEN = 'TOKEN';
 
-  // handleTokenChange = (myToken) => {
-  //   this.setState({ token: myToken });
-  //   localStorage.setItem('TOKEN', myToken);
-  // }
+export default class App extends Component {
+  state = { token: localStorage.getItem(TOKEN) }
+
+  login = (userToken) => {
+    this.setState({ token: userToken });
+    localStorage.setItem(TOKEN, userToken);
+  }
+
+    logout = () => {
+    this.setState({ token: '' });
+    localStorage.setItem(TOKEN, '');
+  }
 
   render() {
     return (
@@ -29,13 +36,16 @@ export default class App extends Component {
                 {...routerProps} />} 
             />
             <Route exact path='/signup' render={(routerProps) => <SignUp 
-                {...routerProps} />} 
+                {...routerProps} login={this.login} />} 
             />
             <Route exact path='/signin' render={(routerProps) => <Login 
-                {...routerProps} />} 
+                {...routerProps} login={this.login} />} 
             />
-            <Route exact path='/todos' render={(routerProps) => <ToDoListPage 
-                {...routerProps} />} 
+            <Route exact path='/todos' render={(routerProps) =>
+              this.state.token
+                ? < ToDoListPage {...routerProps} token={this.state.token} />
+                : <Redirect to="/" />
+            }
             />            
           </Switch>
         </Router>

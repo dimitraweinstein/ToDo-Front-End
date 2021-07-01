@@ -14,7 +14,7 @@ export default class SignupPage extends Component {
 
         this.props.login(token)
 
-        this.props.history.push('/todos')
+        this.props.history.push('/api/todos')
     }
 
     handleEmailChange = async e => {
@@ -35,10 +35,10 @@ export default class SignupPage extends Component {
                 <h2>Create An Account! Sign Up Below:</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email
-                        <input type='email' onChange={this.handleEmailChange}></input>
+                        <input type='email' onChange={this.handleEmailChange} />
                     </label>
                     <label>Password
-                        <input type='password' onChange={this.handlePasswordChange}></input>
+                        <input type='password' onChange={this.handlePasswordChange} />
                     </label>
                     <button type='submit'>Create Account!</button>
                 </form>
